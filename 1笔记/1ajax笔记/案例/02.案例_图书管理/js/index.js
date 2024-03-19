@@ -3,7 +3,7 @@
  *  1.1 获取数据
  *  1.2 渲染数据
  */
-const creator = '老张'
+const creator = '老李'
 // 封装-获取并渲染图书列表函数
 function getBooksList() {
   // 1.1 获取数据
@@ -57,11 +57,12 @@ document.querySelector('.add-btn').addEventListener('click', () => {
     url: 'http://hmajax.itheima.net/api/books',
     method: 'POST',
     data: {
+      // 将对象展开，用于提交时添加属性
       ...bookObj,
       creator
     }
   }).then(result => {
-    // console.log(result)
+    console.log(result)
     // 2.3 添加成功后，重新请求并渲染图书列表
     getBooksList()
     // 重置表单
@@ -85,6 +86,7 @@ document.querySelector('.list').addEventListener('click', e => {
   if (e.target.classList.contains('del')) {
     // console.log('点击删除元素')
     // 获取图书id（自定义属性id）
+    console.log(e.target.parentNode.dataset)
     const theId = e.target.parentNode.dataset.id
     // console.log(theId)
     // 3.2 调用删除接口
@@ -109,6 +111,7 @@ const editDom = document.querySelector('.edit-modal')
 const editModal = new bootstrap.Modal(editDom)
 // 编辑元素->点击->弹框显示
 document.querySelector('.list').addEventListener('click', e => {
+  console.log(e.target.parentNode.dataset.bookname)
   // 判断点击的是否为编辑元素
   if (e.target.classList.contains('edit')) {
     // 4.2 获取当前编辑图书数据->回显到编辑表单中
@@ -133,7 +136,7 @@ document.querySelector('.list').addEventListener('click', e => {
 document.querySelector('.edit-btn').addEventListener('click', () => {
   // 4.3 提交保存修改，并刷新列表
   const editForm = document.querySelector('.edit-form')
-  const { id, bookname, author, publisher } = serialize(editForm, { hash: true, empty: true})
+  const { id, bookname, author, publisher } = serialize(editForm, { hash: true, empty: true })
   // 保存正在编辑的图书id，隐藏起来：无需让用户修改
   // <input type="hidden" class="id" name="id" value="84783">
   axios({
@@ -148,7 +151,6 @@ document.querySelector('.edit-btn').addEventListener('click', () => {
   }).then(() => {
     // 修改成功以后，重新获取并刷新列表
     getBooksList()
-
     // 隐藏弹框
     editModal.hide()
   })

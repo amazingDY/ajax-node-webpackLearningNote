@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微任务与宏任务</title>
+</head>
+
+<body>
+    <script>
+        // 1. ES6 之后引入了 Promise 对象， 让 JS 引擎也可以发起异步任务
+        // 2. 异步任务划分为了
+        //     * 宏任务：由浏览器环境执行的异步代码,例如：JS 执行脚本事件，setTimeout/setInterval，AJAX请求完成事件，用户交互事件等
+        //     * 微任务：由 JS 引擎环境执行的异步代码,例如：Promise对象.then()的回调
+        console.log(1)
+        setTimeout(() => {
+            console.log(2)
+        }, 0)
+        const p = new Promise((resolve, reject) => {
+            resolve(3)
+        })
+        p.then(res => {
+            console.log(res)
+        })
+        console.log(4)
+    </script>
+</body>
+
+</html>

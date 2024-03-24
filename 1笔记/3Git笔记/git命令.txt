@@ -11,3 +11,76 @@ git config --list
 4.把本地文件夹转换成Git仓库
 git init
 
+5.暂存并提交
+| git add 文件名            | 暂存指定文件             |
+| git add .                 | 暂存所有改动的文件       |
+| git commit -m "注释说明"  | 提交并保存，产生版本快照  |
+
+6. 查看文件状态
+git status -s
+| **文件状态** | **概念**          | **场景**             |
+| 未跟踪（U）  | 从未被 Git 管理过 | 新文件               |
+| 新添加（A）  | 第一次被 Git 暂存 | 之前版本记录无此文件 |
+| 未修改（''） | 三个区域统一      | 提交保存后           |
+| 已修改（M）  | 工作区内容变化    | 修改了内容产生       |
+
+7.暂存区 -> 覆盖 -> 工作区
+git restore 目标文件（注意：完全确认覆盖时使用）
+git ls-files查看暂存区文件列表
+
+8.从暂存区移除文件
+git rm --cached 目标文件
+
+9.查看提交
+git log 查看详细信息
+git log --oneline   查看简略信息
+git reflog --oneline    查看完整的提交
+
+10.回退版本
+git reset --soft 版本号（其他文件未跟踪）
+git reset --hard 版本号
+git reset --mixed 版本号 （与 git reset 等价）
+
+11.删除文件
+手动删除之后暂存一下，就能删除暂存区的文件
+
+12.忽略文件
+写一个 .gitignore 文件，填入对应配置项进行忽略
+常用配置：
+//npm下载的包
+node_modules
+//分发文件
+dist
+//vscode文件
+.vscode
+//密钥文件
+*.pem
+*.cer
+//日志文件
+*.log
+
+13.分支相关：
+（1）创建分支命令
+git branch 分支名
+（2）切换分支命令
+git checkout 分支名
+（3）合并分支
+切回到要合入的分支上：git checkout master
+合并其他分支过来：git merge 分支名
+删除合并后的分支指针：git branch -d 分支名
+
+14.远程仓库
+（1）.注册第三方托管平台网站账号
+（2）.新建仓库得到远程仓库 Git 地址
+（3）.本地 Git 仓库添加远程仓库原点地址
+命令：git remote add 远程仓库别名 远程仓库地址
+例如：git remote add origin https://gitee.com/lidongxu/work.git
+（4）.本地 Git 仓库推送版本记录到远程仓库
+命令：git push -u 远程仓库别名 本地和远程分支名
+例如：git push -u origin master
+完整写法：git push --set-upstream origin master:master
+（5）git clone 远程仓库地址
+例如：git clone https://gitee.com/lidongxu/work.git
+（6）git pull 仓库名 分支名 等价于 
+git fetch 仓库名 master:master（获取远程分支记录到本地，未合并）
+git merge 仓库名/分支名 （把远程分支记录合并到所在分支下）

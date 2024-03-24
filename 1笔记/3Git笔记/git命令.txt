@@ -1,0 +1,13 @@
+1.查看版本
+git -v
+
+2.配置个人用户信息
+git config --global user.name "amazingDY"
+git config --global user.email "1526386823@qq.com"
+
+3.查看配置信息
+git config --list
+
+4.把本地文件夹转换成Git仓库
+git init
+
